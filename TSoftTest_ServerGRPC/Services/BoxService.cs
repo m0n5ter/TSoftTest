@@ -22,8 +22,11 @@ public class BoxService : TSoftTest.Shared.BoxService.BoxServiceBase
             {
                 try
                 {
-                    await responseStream.WriteAsync(new BoxReply {Box = box.Clone()});
                     if (context.CancellationToken.IsCancellationRequested) return;
+                    await responseStream.WriteAsync(new BoxReply {Box = box.Clone()});
+                }
+                catch (OperationCanceledException)
+                {
                 }
                 catch (Exception exception)
                 {
