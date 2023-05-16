@@ -1,0 +1,19 @@
+<Application
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Avalonia.Markup.Xaml.Converters;assembly=Avalonia.Markup.Xaml"
+    xmlns:views="clr-namespace:TSoftTest_Client.Views"
+    x:Class="TSoftTest_Client.App"
+    RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+        <views:CollapsedWhenNullConverter x:Key="CollapsedWhenNullConverter"/>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+</Application>

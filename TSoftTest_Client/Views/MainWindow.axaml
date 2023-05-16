@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TSoftTest_Client.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tSoftTestShared="clr-namespace:TSoftTest_Shared;assembly=TSoftTest_Shared"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TSoftTest_Client.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TSoftTest_Client">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Border BorderThickness="1" Margin="10" BorderBrush="DarkGray" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False">
+            <Viewbox>
+                <ItemsControl ItemsSource="{Binding Boxes}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas Width="{x:Static tSoftTestShared:Constants.FieldWidth}" Height="{x:Static tSoftTestShared:Constants.FieldHeight}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Styles>
+                        <Style Selector="ItemsControl > ContentPresenter">
+                            <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                            <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                        </Style>
+                    </ItemsControl.Styles>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Rectangle RadiusX="5" RadiusY="5" Stroke="Black" StrokeThickness="1" Fill="{Binding Background, Converter={StaticResource ColorToBrushConverter}}" Width="{Binding Width}" Height="{Binding Height}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Viewbox>
+        </Border>
+
+        <Border Background="#A0FFFFFF" BorderBrush="DarkGoldenrod" BorderThickness="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40" IsVisible="{Binding ConnectionError, Converter={StaticResource CollapsedWhenNullConverter}}">
+            <TextBlock Foreground="Red" Margin="40,20" TextWrapping="Wrap" FontSize="20" Text="{Binding ConnectionError.Message, FallbackValue=''}"/>
+        </Border>
+    </Grid>
+</Window>
